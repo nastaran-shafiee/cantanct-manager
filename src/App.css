@@ -1,0 +1,16 @@
+body {
+  color: aliceblue;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.App {
+  padding: 30px 30px;
+  padding-bottom: 220px;
+  width: 90%;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.tableh1 th {
+  width: 20%;
+}

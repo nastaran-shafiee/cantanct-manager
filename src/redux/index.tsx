@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { configureStore } from "@reduxjs/toolkit";
 // initiolstate---------------------------------------------------------------------------------
 const initialState = {
+  editingMode: false,
+  editeuser: {},
   user: [],
   modal: false,
   id: 0,
-  editingMode: false,
-  editeuser: {},
 };
 // form slice function---------------------------------------------------------------------------
 const formSlice = createSlice({

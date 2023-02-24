@@ -11,7 +11,7 @@ const useInput = (
     setEntredValue(event.target.value);
   };
 
-  const BlurHandler = (event) => {
+  const BlurHandler = (event: boolean) => {
     setfucus(true);
   };
 
@@ -19,7 +19,7 @@ const useInput = (
     setEntredValue(" ");
     setfucus(false);
   };
-  const valueE = (value) => {
+  const valueE = (value: string) => {
     setEntredValue(value);
   };
 

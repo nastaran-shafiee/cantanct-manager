@@ -1,8 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
+import {
+  AddContactPayload,
+  FormSliceActions,
+  InitialState,
+  LocalstorageReadAction,
+  RootState,
+  SearchPayload,
+  User,
+} from "../interFace";
 import { configureStore } from "@reduxjs/toolkit";
 // initiolstate---------------------------------------------------------------------------------
-const initialState = {
+const initialState: InitialState = {
   editingMode: false,
   editeuser: {},
   user: [],
@@ -15,7 +23,7 @@ const formSlice = createSlice({
   initialState: initialState,
   reducers: {
     // add cantactcar-----------------------------------------
-    addContact(state, action) {
+    addContact(state: InitialState, action: PayloadAction<AddContactPayload>) {
       state.user.push(action.payload.user1);
       localStorage.setItem("user", JSON.stringify(state.user));
     },
@@ -24,9 +32,9 @@ const formSlice = createSlice({
       state.id = action.payload;
     },
     // delete---------------------------------------------------------
-    delete(state) {
+    delete(state: InitialState) {
       let newcontact = state.user;
-      newcontact = newcontact.filter((item) => item.id !== state.id);
+      newcontact = newcontact.filter((item: any) => item.id !== state.id);
 
       state.user = newcontact;
       localStorage.setItem("user", JSON.stringify(newcontact));
@@ -38,8 +46,8 @@ const formSlice = createSlice({
     // edit-----------------------------------------------------
 
     // localstorage-----------------------------------------------------
-    localstorageRead(state) {
-      state.user = JSON.parse(localStorage.getItem("user")) || [];
+    localstorageRead(state: InitialState) {
+      state.user = JSON.parse(localStorage.getItem("user")!) || [];
     },
     // editting----------------------------------------
     removeEditing(state) {
@@ -51,25 +59,16 @@ const formSlice = createSlice({
     },
 
     edituser(state, action) {
-      let List = state.user;
-      let number = List.findIndex((i) => i.id === action.payload.id);
-      List.splice(number, 1, action.payload);
-      state.user = List;
-      localStorage.setItem("user", JSON.stringify(List));
+      const updatedList = [...state.user];
+      const index = updatedList.findIndex((i) => i.id === action.payload.id);
+      if (index !== -1) {
+        updatedList[index] = action.payload;
+        state.user = updatedList;
+        localStorage.setItem("user", JSON.stringify(updatedList));
+      }
     },
     cancel(state) {
       state.user;
-    },
-
-    search(state, action) {
-      const query = action.payload.toLowerCase();
-      state.user = JSON.parse(localStorage.getItem("user")) || [];
-      if (query === "") return;
-      state.user = state.user.filter((user) => {
-        const name = user.name.toLowerCase();
-        const email = user.email.toLowerCase();
-        return name.includes(query) || email.includes(query);
-      });
     },
   },
 });
